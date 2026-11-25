@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Brand } from "./brand";
 import { Close, Menu } from "./icons";
+import { SpotlightButton } from "./spotlight";
 import { ThemeToggle } from "./theme-toggle";
 
 const LINKS = [
@@ -87,6 +88,7 @@ export function Nav() {
         </ul>
 
         <div className="flex items-center gap-1">
+          <SpotlightButton />
           <ThemeToggle />
           <button
             type="button"
