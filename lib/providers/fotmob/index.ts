@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { classifyCompetition, isExcludedCompetition, JAPAN_TEAM_ID } from "@/config/competitions";
 import { japaneseName } from "@/config/players";
-import type { Competition, Match, Player, Snapshot, Team } from "@/lib/types";
+import type { Competition, Match, Player, Team } from "@/lib/types";
 import { createGate, fetchJson } from "../http";
 import type { DataProvider, RosterEntry } from "../types";
 import { buildAppearance, extractMatch, matchFromRecent, normalizeProfile, type ExtractedMatch } from "./normalize";
