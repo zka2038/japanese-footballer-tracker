@@ -12,7 +12,18 @@ import { PlayButton } from "./video";
 
 const dateFmt = new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "short", timeZone: "UTC" });
 
-export function PlayerSeason({ performances, season }: { performances: Performance[]; season: string }) {
+export function PlayerSeason({
+  performances,
+  season,
+  isKeeper = false,
+  emptyNote,
+}: {
+  performances: Performance[];
+  season: string;
+  isKeeper?: boolean;
+  /** Shown instead of the stats when the player has not played at all. */
+  emptyNote?: string;
+}) {
   const available = useMemo(
     () => SCOPES.map((s) => ({ ...s, disabled: !performances.some((p) => inScope(p.competitionKind, s.id)) })),
     [performances],
@@ -25,7 +36,38 @@ export function PlayerSeason({ performances, season }: { performances: Performan
   const played = inView.filter((p) => !p.unusedSub);
   const rows = showAll ? inView : inView.slice(0, 12);
 
-  const tiles: { label: string; value: string; sub?: string }[] = [
+  // Goalkeeper numbers: clean sheets in matches played for 60+ minutes, and
+  // goals against in full games (minutes ≥ 85) as a per-game rate.
+  const cleanSheets = played.filter((p) => p.minutes >= 60 && p.goalsAgainst === 0).length;
+  const fullGames = played.filter((p) => p.minutes >= 85 && p.goalsAgainst !== null);
+  const conceded = fullGames.reduce((n, p) => n + (p.goalsAgainst ?? 0), 0);
+
+  const keeperTiles: { label: string; value: string; sub?: string }[] = [
+    { label: "Appearances", value: String(t.apps), sub: `${t.starts} starts` },
+    {
+      label: "Clean sheets",
+      value: String(cleanSheets),
+      sub: t.apps ? `${Math.round((cleanSheets / t.apps) * 100)}% of appearances` : undefined,
+    },
+    {
+      label: "Conceded per game",
+      value: fullGames.length ? (conceded / fullGames.length).toFixed(2) : "–",
+      sub: `${conceded} in ${fullGames.length} full games`,
+    },
+    {
+      label: "Average rating",
+      value: t.avgRating !== null ? t.avgRating.toFixed(2) : "–",
+      sub: t.bestRating ? `Best ${t.bestRating.toFixed(1)}` : undefined,
+    },
+    { label: "Player of the match", value: String(t.potm), sub: "FotMob awards" },
+    {
+      label: "Minutes",
+      value: t.minutes.toLocaleString("en-GB"),
+      sub: t.apps ? `${Math.round(t.minutes / t.apps)}′ per appearance` : undefined,
+    },
+  ];
+
+  const outfieldTiles: { label: string; value: string; sub?: string }[] = [
     { label: "Appearances", value: String(t.apps), sub: `${t.starts} starts · ${t.apps - t.starts} sub` },
     { label: "Goals", value: String(t.goals), sub: t.xMatches ? `${t.xg.toFixed(2)} xG` : undefined },
     { label: "Assists", value: String(t.assists), sub: t.xMatches ? `${t.xa.toFixed(2)} xA` : undefined },
@@ -41,6 +83,21 @@ export function PlayerSeason({ performances, season }: { performances: Performan
       sub: t.apps ? `${Math.round(t.minutes / t.apps)}′ per appearance` : undefined,
     },
   ];
+
+  const tiles = isKeeper ? keeperTiles : outfieldTiles;
+
+  if (emptyNote && !performances.some((p) => !p.unusedSub)) {
+    return (
+      <section className="container-page mt-12">
+        <p className="eyebrow mb-2">{season.replace("/20", "/")} season</p>
+        <h2 className="display-md">Season stats.</h2>
+        <div className="card mt-6 grid place-items-center px-6 py-16 text-center">
+          <p className="title">No appearances yet this season.</p>
+          <p className="mt-2 max-w-md text-[15px] text-ink-2">{emptyNote}</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="container-page mt-12">

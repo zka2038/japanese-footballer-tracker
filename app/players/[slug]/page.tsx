@@ -22,6 +22,12 @@ import {
 } from "@/lib/data";
 import { formatDay, formatFullDate, formatMoney } from "@/lib/format";
 import { leagueLogo, playerImage } from "@/lib/images";
+import { aggregate } from "@/lib/stats";
+
+/** "Early December 2026" → "early December 2026" */
+const lowerFirst = (s: string) => s.charAt(0).toLowerCase() + s.slice(1);
+
+const KIND_ORDER = { league: 0, europe: 1, cup: 2, other: 3, national: 4 } as const;
 
 export function generateStaticParams() {
   return players().map((p) => ({ slug: p.slug }));
@@ -91,6 +97,16 @@ async function PlayerContent({ params }: { params: PageProps<"/players/[slug]">[
     { label: "Market value", value: formatMoney(p.marketValueEur) },
     { label: "Contract", value: p.contractEnd ? `Until ${p.contractEnd.slice(0, 4)}` : "–" },
   ];
+
+  const compIds = [...new Set(perfs.filter((x) => !x.unusedSub).map((x) => x.competitionId))];
+  const byComp = compIds
+    .map((id) => ({
+      id,
+      name: competition(id).name,
+      kind: competition(id).kind,
+      t: aggregate(perfs.filter((x) => x.competitionId === id)),
+    }))
+    .sort((a, b) => KIND_ORDER[a.kind] - KIND_ORDER[b.kind] || b.t.apps - a.t.apps);
 
   const groupName = { GK: "goalkeepers", DEF: "defenders", MID: "midfielders", FWD: "forwards" }[p.positionGroup];
 
@@ -204,7 +220,60 @@ async function PlayerContent({ params }: { params: PageProps<"/players/[slug]">[
         </div>
       </section>
 
-      <PlayerSeason performances={perfs} season={snap.season} />
+      <PlayerSeason
+        performances={perfs}
+        season={snap.season}
+        isKeeper={p.positionGroup === "GK"}
+        emptyNote={
+          p.injury
+            ? `${p.firstName || p.name} is out with a ${p.injury.name.toLowerCase()}${
+                p.injury.expectedReturn ? ` and is expected back ${lowerFirst(p.injury.expectedReturn)}` : ""
+              }.`
+            : `${p.name} hasn't featured in a tracked match since the season started.`
+        }
+      />
+
+      {/* ---------------------------------------------------- By competition */}
+      {byComp.length > 1 && (
+        <section className="container-page mt-4">
+          <div className="card overflow-hidden">
+            <p className="title px-5 pb-3 pt-6 sm:px-8">By competition</p>
+            <div className="overflow-x-auto">
+              <table className="w-full text-[14px]">
+                <thead>
+                  <tr className="border-y border-hairline text-left text-[11.5px] text-ink-3">
+                    <th className="py-2.5 pl-5 font-medium sm:pl-8">Competition</th>
+                    <th className="px-2 py-2.5 text-right font-medium">Apps</th>
+                    <th className="hidden px-2 py-2.5 text-right font-medium sm:table-cell">Min</th>
+                    <th className="px-2 py-2.5 text-right font-medium">G</th>
+                    <th className="px-2 py-2.5 text-right font-medium">A</th>
+                    <th className="py-2.5 pl-2 pr-5 text-right font-medium sm:pr-8">Avg rating</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-hairline tabular">
+                  {byComp.map((c) => (
+                    <tr key={c.id}>
+                      <td className="py-3 pl-5 sm:pl-8">
+                        <span className="flex items-center gap-2.5">
+                          <span className="grid size-6 shrink-0 place-items-center rounded-md bg-white p-0.5 shadow-[0_0_0_1px_var(--hairline)]">
+                            <Image src={leagueLogo(c.id)} alt="" width={20} height={20} className="size-5 object-contain" />
+                          </span>
+                          {c.name}
+                        </span>
+                      </td>
+                      <td className="px-2 py-3 text-right">{c.t.apps}</td>
+                      <td className="hidden px-2 py-3 text-right text-ink-2 sm:table-cell">{c.t.minutes.toLocaleString("en-GB")}</td>
+                      <td className="px-2 py-3 text-right font-semibold">{c.t.goals}</td>
+                      <td className="px-2 py-3 text-right font-semibold">{c.t.assists}</td>
+                      <td className="py-3 pl-2 pr-5 text-right sm:pr-8">{c.t.avgRating?.toFixed(2) ?? "–"}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ----------------------------------------------------- Profile chart */}
       {p.traits.length > 0 && (
