@@ -6,7 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "sync": "tsx scripts/sync.ts",
+    "discover": "tsx scripts/sync.ts --discover",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "ja-names": "tsx scripts/ja-names.ts"
   },
   "dependencies": {
     "motion": "^14.14.0",

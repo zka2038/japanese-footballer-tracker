@@ -1,0 +1,411 @@
+{
+  "discoveredAt": "2026-11-25T23:14:27.918Z",
+  "players": [
+    {
+      "id": 935728,
+      "name": "Ao Tanaka",
+      "teamId": 8463,
+      "teamName": "Leeds United",
+      "leagueId": 47
+    },
+    {
+      "id": 942393,
+      "name": "Ayase Ueda",
+      "teamId": 8639,
+      "teamName": "Lille",
+      "leagueId": 53
+    },
+    {
+      "id": 857120,
+      "name": "Ayumu Seko",
+      "teamId": 9746,
+      "teamName": "Le Havre",
+      "leagueId": 53
+    },
+    {
+      "id": 1233852,
+      "name": "Ayumu Yokoyama",
+      "teamId": 9987,
+      "teamName": "Genk",
+      "leagueId": 40
+    },
+    {
+      "id": 621515,
+      "name": "Daichi Kamada",
+      "teamId": 9826,
+      "teamName": "Crystal Palace",
+      "leagueId": 47
+    },
+    {
+      "id": 878296,
+      "name": "Daiki Hashioka",
+      "teamId": 9788,
+      "teamName": "Borussia Mönchengladbach",
+      "leagueId": 54
+    },
+    {
+      "id": 1244356,
+      "name": "Daisuke Yokota",
+      "teamId": 8548,
+      "teamName": "Rangers",
+      "leagueId": 64
+    },
+    {
+      "id": 728765,
+      "name": "Daizen Maeda",
+      "teamId": 9902,
+      "teamName": "Ipswich Town",
+      "leagueId": 47
+    },
+    {
+      "id": 1583858,
+      "name": "Gaku Nawata",
+      "teamId": 9986,
+      "teamName": "Sporting Charleroi",
+      "leagueId": 40
+    },
+    {
+      "id": 915102,
+      "name": "Hidemasa Morita",
+      "teamId": 8667,
+      "teamName": "Hull City",
+      "leagueId": 47
+    },
+    {
+      "id": 851626,
+      "name": "Hiroki Ito",
+      "teamId": 9823,
+      "teamName": "Bayern München",
+      "leagueId": 54
+    },
+    {
+      "id": 1308624,
+      "name": "Isa Sakamoto",
+      "teamId": 10001,
+      "teamName": "Westerlo",
+      "leagueId": 40
+    },
+    {
+      "id": 604044,
+      "name": "Junya Ito",
+      "teamId": 9987,
+      "teamName": "Genk",
+      "leagueId": 40
+    },
+    {
+      "id": 1033111,
+      "name": "Kaishu Sano",
+      "teamId": 9905,
+      "teamName": "Mainz 05",
+      "leagueId": 54
+    },
+    {
+      "id": 1515636,
+      "name": "Kaito Matsuzawa",
+      "teamId": 9997,
+      "teamName": "St.Truiden",
+      "leagueId": 40
+    },
+    {
+      "id": 1072117,
+      "name": "Kaito Mizuta",
+      "teamId": 9746,
+      "teamName": "Le Havre",
+      "leagueId": 53
+    },
+    {
+      "id": 862608,
+      "name": "Kaoru Mitoma",
+      "teamId": 10204,
+      "teamName": "Brighton & Hove Albion",
+      "leagueId": 47
+    },
+    {
+      "id": 1436730,
+      "name": "Keisuke Goto",
+      "teamId": 8358,
+      "teamName": "Freiburg",
+      "leagueId": 54
+    },
+    {
+      "id": 1627706,
+      "name": "Keita Kosugi",
+      "teamId": 9810,
+      "teamName": "Eintracht Frankfurt",
+      "leagueId": 54
+    },
+    {
+      "id": 887704,
+      "name": "Keito Nakamura",
+      "teamId": 9748,
+      "teamName": "Lyon",
+      "leagueId": 53
+    },
+    {
+      "id": 1423125,
+      "name": "Ken Masui",
+      "teamId": 8571,
+      "teamName": "Kortrijk",
+      "leagueId": 40
+    },
+    {
+      "id": 620917,
+      "name": "Ko Itakura",
+      "teamId": 9788,
+      "teamName": "Borussia Mönchengladbach",
+      "leagueId": 54
+    },
+    {
+      "id": 1337282,
+      "name": "Kodai Sano",
+      "teamId": 8640,
+      "teamName": "PSV Eindhoven",
+      "leagueId": 57
+    },
+    {
+      "id": 1900024,
+      "name": "Koki Ando",
+      "teamId": 9988,
+      "teamName": "Royal Antwerp",
+      "leagueId": 40
+    },
+    {
+      "id": 727817,
+      "name": "Koki Machida",
+      "teamId": 8226,
+      "teamName": "Hoffenheim",
+      "leagueId": 54
+    },
+    {
+      "id": 1308600,
+      "name": "Kota Takai",
+      "teamId": 9997,
+      "teamName": "St.Truiden",
+      "leagueId": 40
+    },
+    {
+      "id": 1155621,
+      "name": "Leo Kokubo",
+      "teamId": 9997,
+      "teamName": "St.Truiden",
+      "leagueId": 40
+    },
+    {
+      "id": 1381856,
+      "name": "Nelson Ishiwatari",
+      "teamId": 9997,
+      "teamName": "St.Truiden",
+      "leagueId": 40
+    },
+    {
+      "id": 430838,
+      "name": "Nikki Havenaar",
+      "teamId": 7978,
+      "teamName": "Union St.Gilloise",
+      "leagueId": 40
+    },
+    {
+      "id": 629805,
+      "name": "Ritsu Doan",
+      "teamId": 9810,
+      "teamName": "Eintracht Frankfurt",
+      "leagueId": 54
+    },
+    {
+      "id": 1134524,
+      "name": "Ryotaro Araki",
+      "teamId": 9997,
+      "teamName": "St.Truiden",
+      "leagueId": 40
+    },
+    {
+      "id": 1611149,
+      "name": "Ryunosuke Sato",
+      "teamId": 10267,
+      "teamName": "Valencia",
+      "leagueId": 87
+    },
+    {
+      "id": 1155066,
+      "name": "Satoshi Tanaka",
+      "teamId": 10189,
+      "teamName": "Schalke 04",
+      "leagueId": 54
+    },
+    {
+      "id": 1122594,
+      "name": "Seiji Kimura",
+      "teamId": 10001,
+      "teamName": "Westerlo",
+      "leagueId": 40
+    },
+    {
+      "id": 1134723,
+      "name": "Seiya Maikuma",
+      "teamId": 10229,
+      "teamName": "AZ Alkmaar",
+      "leagueId": 57
+    },
+    {
+      "id": 1054789,
+      "name": "Shin Yamada",
+      "teamId": 1773,
+      "teamName": "OH Leuven",
+      "leagueId": 40
+    },
+    {
+      "id": 1717127,
+      "name": "Shion Shinkawa",
+      "teamId": 9997,
+      "teamName": "St.Truiden",
+      "leagueId": 40
+    },
+    {
+      "id": 523731,
+      "name": "Shogo Taniguchi",
+      "teamId": 9997,
+      "teamName": "St.Truiden",
+      "leagueId": 40
+    },
+    {
+      "id": 1227814,
+      "name": "Shunsuke Mito",
+      "teamId": 8614,
+      "teamName": "Sparta Rotterdam",
+      "leagueId": 57
+    },
+    {
+      "id": 1611437,
+      "name": "Shunsuke Saito",
+      "teamId": 10001,
+      "teamName": "Westerlo",
+      "leagueId": 40
+    },
+    {
+      "id": 915111,
+      "name": "Shuto Machino",
+      "teamId": 9788,
+      "teamName": "Borussia Mönchengladbach",
+      "leagueId": 54
+    },
+    {
+      "id": 1134759,
+      "name": "Sota Kawasaki",
+      "teamId": 9905,
+      "teamName": "Mainz 05",
+      "leagueId": 54
+    },
+    {
+      "id": 1714197,
+      "name": "Sota Nakamura",
+      "teamId": 9746,
+      "teamName": "Le Havre",
+      "leagueId": 53
+    },
+    {
+      "id": 1269404,
+      "name": "Taichi Fukui",
+      "teamId": 158085,
+      "teamName": "Arouca",
+      "leagueId": 61
+    },
+    {
+      "id": 1134461,
+      "name": "Taiga Hata",
+      "teamId": 9997,
+      "teamName": "St.Truiden",
+      "leagueId": 40
+    },
+    {
+      "id": 1134460,
+      "name": "Taishi Brandon Nozawa",
+      "teamId": 9988,
+      "teamName": "Royal Antwerp",
+      "leagueId": 40
+    },
+    {
+      "id": 848289,
+      "name": "Takefusa Kubo",
+      "teamId": 8560,
+      "teamName": "Real Sociedad",
+      "leagueId": 87
+    },
+    {
+      "id": 664444,
+      "name": "Takehiro Tomiyasu",
+      "teamId": 9826,
+      "teamName": "Crystal Palace",
+      "leagueId": 47
+    },
+    {
+      "id": 408943,
+      "name": "Takumi Minamino",
+      "teamId": 9829,
+      "teamName": "Monaco",
+      "leagueId": 53
+    },
+    {
+      "id": 922834,
+      "name": "Takuya Ogiwara",
+      "teamId": 1773,
+      "teamName": "OH Leuven",
+      "leagueId": 40
+    },
+    {
+      "id": 1025603,
+      "name": "Tatsuhiro Sakamoto",
+      "teamId": 8669,
+      "teamName": "Coventry City",
+      "leagueId": 47
+    },
+    {
+      "id": 1023887,
+      "name": "Tsuyoshi Watanabe",
+      "teamId": 10235,
+      "teamName": "Feyenoord",
+      "leagueId": 57
+    },
+    {
+      "id": 202643,
+      "name": "Wataru Endo",
+      "teamId": 8650,
+      "teamName": "Liverpool",
+      "leagueId": 47
+    },
+    {
+      "id": 1134467,
+      "name": "Yuito Suzuki",
+      "teamId": 8358,
+      "teamName": "Freiburg",
+      "leagueId": 54
+    },
+    {
+      "id": 924610,
+      "name": "Yukinari Sugawara",
+      "teamId": 8529,
+      "teamName": "Cagliari",
+      "leagueId": 55
+    },
+    {
+      "id": 1437306,
+      "name": "Yuto Tsunashima",
+      "teamId": 9988,
+      "teamName": "Royal Antwerp",
+      "leagueId": 40
+    },
+    {
+      "id": 1337143,
+      "name": "Zento Uno",
+      "teamId": 9788,
+      "teamName": "Borussia Mönchengladbach",
+      "leagueId": 54
+    },
+    {
+      "id": 1053679,
+      "name": "Zion Suzuki",
+      "teamId": 10252,
+      "teamName": "Aston Villa",
+      "leagueId": 47
+    }
+  ]
+}
