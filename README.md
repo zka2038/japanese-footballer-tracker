@@ -24,6 +24,7 @@ GitHub Actions (every 3h) → npm run sync → FotMob → data/snapshot.json →
 - **The site never calls a data provider at request time.** Every page is prerendered from `data/snapshot.json`, so it's fast, free to host, and a provider outage never breaks the UI.
 - **Discovery** (`npm run discover`) scans every squad in the tracked leagues for Japanese nationals and writes `data/roster.json`. It runs automatically every Monday.
 - **Match details** are cached in `data/matches/` once a match finishes, so each sync only fetches new games. Highlights often appear a few hours late, so recent matches without a video are rechecked for up to 5 days.
+- **Highlights** come from FotMob's match pages first. FotMob doesn't link every game (UEFA competitions especially), so when a tracked player scored or assisted and there's no video, the sync searches YouTube (`lib/highlights/`). A strict title matcher requires both teams, a "highlights" phrase and the right scoreline, and rejects reactions, video-game simulations, youth and women's games. It also needs a public, embeddable video of highlight length. This needs a free `YOUTUBE_API_KEY`; results are cached in `data/highlight-search.json`, and each run makes at most 12 searches so it stays inside the free quota.
 - **Validation:** a snapshot is only written if it passes integrity checks (`lib/snapshot-validate.ts`). A bad or partial fetch never replaces good data.
 - **Japanese names** come from Wikidata (`npm run ja-names` → `config/ja-names.json`), accepting only entities that are Japanese association football players. `config/players.ts` holds a hand-written fallback.
 
@@ -33,6 +34,12 @@ The data layer is provider-agnostic (`lib/providers/types.ts`):
 
 - **FotMob** (default, `lib/providers/fotmob`) uses FotMob's *undocumented* public JSON API. It's rich (ratings, xG, lineups, highlight links) but unofficial, and it can change without notice. That's fine for a personal project; check FotMob's terms before using it for anything commercial.
 - **API-Football** (fallback, `lib/providers/api-football`) is the official, documented API. Set `API_FOOTBALL_KEY` and it takes over automatically if FotMob fails, or set `DATA_PROVIDER=api-football` to make it primary. It's incremental and budget-aware (`API_FOOTBALL_BUDGET`, default 95 requests/run), so it fits the free tier's 100 requests/day, though a first backfill may take a few days.
+
+### YouTube key (optional, recommended)
+
+1. In [Google Cloud Console](https://console.cloud.google.com/), create a project, enable **YouTube Data API v3**, and create an **API key** (restrict it to that API).
+2. Add it as a GitHub repository secret named `YOUTUBE_API_KEY` (Settings → Secrets and variables → Actions).
+3. For local runs, put `YOUTUBE_API_KEY=...` in `.env.local` (git-ignored) and run `npm run sync`.
 
 If FotMob's response shape changes, the normalizers in `lib/providers/fotmob/normalize.ts` are the only code to update. The tests in `tests/` use trimmed real responses, so they catch shape changes.
 

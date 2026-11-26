@@ -7,11 +7,15 @@
  * Env:
  *   DATA_PROVIDER=fotmob|api-football   primary provider (default fotmob)
  *   API_FOOTBALL_KEY=...                enables the API-Football fallback
+ *   YOUTUBE_API_KEY=...                 finds highlights FotMob doesn't link
+ *
+ * Locally these can live in .env.local (git-ignored).
  */
 import fs from "node:fs/promises";
 import path from "node:path";
 import { CURRENT_SEASON, SEASON_START, TRACKED_LEAGUES } from "@/config/competitions";
 import { EXCLUDED_PLAYERS, EXTRA_PLAYERS } from "@/config/players";
+import { enrichHighlights } from "@/lib/highlights/youtube";
 import { apiFootball } from "@/lib/providers/api-football";
 import { fotmob } from "@/lib/providers/fotmob";
 import type { DataProvider, RosterEntry } from "@/lib/providers/types";
@@ -24,6 +28,12 @@ const SNAPSHOT_FILE = path.join(DATA_DIR, "snapshot.json");
 const ROSTER_MAX_AGE_DAYS = 7;
 
 const log = (msg: string) => console.log(msg);
+
+try {
+  process.loadEnvFile(path.join(process.cwd(), ".env.local"));
+} catch {
+  // no .env.local; rely on the real environment
+}
 
 async function readJson<T>(file: string): Promise<T | null> {
   try {
@@ -101,6 +111,8 @@ async function main() {
         log(`Snapshot from ${provider.name} failed validation:\n  - ${problems.join("\n  - ")}`);
         continue;
       }
+      log("\nLooking for missing highlights…");
+      await enrichHighlights(snap, log);
       await fs.writeFile(SNAPSHOT_FILE, JSON.stringify(snap) + "\n");
       const apps = snap.players.reduce((n, p) => n + p.appearances.length, 0);
       log(
