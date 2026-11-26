@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import { Footer } from "@/components/footer";
 import { Nav } from "@/components/nav";
+import { Spotlight } from "@/components/spotlight";
+import { players, team } from "@/lib/data";
 import "./globals.css";
 
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"], display: "swap" });
@@ -26,6 +28,14 @@ export const viewport: Viewport = {
 const themeScript = `try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}`;
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
+  const searchable = players().map((p) => ({
+    id: p.id,
+    slug: p.slug,
+    name: p.name,
+    nameJa: p.nameJa,
+    teamName: team(p.teamId).name,
+    position: p.position,
+  }));
   return (
     <html lang="en" className={`${inter.variable} h-full`} suppressHydrationWarning>
       <head>
@@ -35,6 +45,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Nav />
         <main className="flex-1">{children}</main>
         <Footer />
+        <Spotlight players={searchable} />
       </body>
     </html>
   );

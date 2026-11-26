@@ -177,6 +177,8 @@ export interface PlayerCardData {
   leagueName: string;
   injured: boolean;
   totals: Totals;
+  /** Club matches played 60+ minutes without conceding (meaningful for keepers). */
+  cleanSheets: number;
   /** Last five club ratings, oldest → newest. */
   form: (number | null)[];
   lastPlayed: string | null;
@@ -203,6 +205,13 @@ export function playerCard(p: Player, scope: Scope = "club"): PlayerCardData {
     leagueName: competition(p.leagueId).shortName,
     injured: Boolean(p.injury),
     totals: totals(p, scope),
+    cleanSheets: appsInScope(p, scope).filter((a) => {
+      if (a.unusedSub || a.minutes < 60) return false;
+      const m = snap.matches[a.matchId];
+      if (!m?.finished) return false;
+      const against = m.home.id === a.teamId ? m.away.score : m.home.score;
+      return against === 0;
+    }).length,
     form: played
       .slice(0, 5)
       .map((a) => a.rating)

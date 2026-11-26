@@ -1,0 +1,64 @@
+name: Sync data
+
+# Refreshes data/snapshot.json from FotMob and commits it. The commit triggers
+# a redeploy on Vercel (or any host watching the branch).
+on:
+  schedule:
+    # Every 3 hours. Matches finish at all hours across Europe's time zones.
+    - cron: "17 */3 * * *"
+    # Monday morning: rescan leagues for new Japanese signings.
+    - cron: "40 5 * * 1"
+  workflow_dispatch:
+    inputs:
+      discover:
+        description: "Rescan leagues for players"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      - name: Sync
+        env:
+          DATA_PROVIDER: fotmob
+          API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
+        run: |
+          if [ "${{ github.event.schedule }}" = "40 5 * * 1" ] || [ "${{ inputs.discover }}" = "true" ]; then
+            npm run sync -- --discover
+            npm run ja-names || true
+          else
+            npm run sync
+          fi
+
+      - name: Test
+        run: npm test
+
+      - name: Commit changes
+        run: |
+          if git diff --quiet -- data config; then
+            echo "No data changes."
+            exit 0
+          fi
+          git config user.name "kaigai-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data config
+          git commit -m "data: sync $(date -u +'%Y-%m-%d %H:%M') UTC"
+          git push

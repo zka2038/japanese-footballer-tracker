@@ -30,11 +30,18 @@ export function PlayerCard({ p }: { p: PlayerCardData }) {
       </div>
 
       <dl className="relative mt-5 grid grid-cols-4 gap-2 border-t border-hairline pt-4 text-center">
-        {[
-          { label: "Apps", value: t.apps },
-          { label: "Goals", value: t.goals },
-          { label: "Assists", value: t.assists },
-        ].map((s) => (
+        {(p.positionGroup === "GK"
+          ? [
+              { label: "Apps", value: t.apps },
+              { label: "Clean sh.", value: p.cleanSheets },
+              { label: "POTM", value: t.potm },
+            ]
+          : [
+              { label: "Apps", value: t.apps },
+              { label: "Goals", value: t.goals },
+              { label: "Assists", value: t.assists },
+            ]
+        ).map((s) => (
           <div key={s.label}>
             <dt className="text-[10.5px] font-medium uppercase tracking-[0.04em] text-ink-3">{s.label}</dt>
             <dd className="mt-0.5 text-[19px] font-semibold tabular">{s.value}</dd>
