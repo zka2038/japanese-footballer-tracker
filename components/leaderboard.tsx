@@ -95,13 +95,13 @@ export function Leaderboard({
           ) : (
             <>
               {/* Podium */}
-              <ol className="mt-8 grid gap-4 md:grid-cols-3">
+              <ol className="mt-8 grid gap-3 md:grid-cols-3 md:gap-4">
                 {podium.map((p, i) => (
                   <li key={p.id} className={i === 0 ? "md:order-2" : i === 1 ? "md:order-1" : "md:order-3"}>
                     <Link
                       href={`/players/${p.slug}`}
-                      className={`card group relative flex h-full flex-col items-center overflow-hidden px-6 pb-7 text-center transition-shadow duration-500 hover:shadow-lift ${
-                        i === 0 ? "pt-10 md:-mt-4" : "pt-8"
+                      className={`card group relative grid h-full grid-cols-[auto_1fr_auto] items-center gap-x-4 overflow-hidden p-4 transition-shadow duration-500 hover:shadow-lift md:flex md:flex-col md:items-center md:px-6 md:pb-7 md:text-center ${
+                        i === 0 ? "md:-mt-4 md:pt-10" : "md:pt-8"
                       }`}
                     >
                       <div
@@ -111,24 +111,29 @@ export function Leaderboard({
                           background: `radial-gradient(60% 100% at 50% 0%, color-mix(in oklab, ${p.teamColor} 35%, transparent), transparent)`,
                         }}
                       />
-                      <span className="relative mb-4 text-[12px] font-semibold text-ink-3">
+                      <span className="relative col-start-2 row-start-1 self-end text-[11px] font-semibold text-ink-3 md:mb-4 md:self-center md:text-[12px]">
                         {ranks[i] === 1 ? "1st" : ranks[i] === 2 ? "2nd" : "3rd"}
                       </span>
-                      <span className="relative">
+                      <span className="relative col-start-1 row-span-3 row-start-1 md:hidden">
+                        <PlayerAvatar id={p.id} name={p.name} color={p.teamColor} size={56} />
+                      </span>
+                      <span className="relative hidden md:block">
                         <PlayerAvatar id={p.id} name={p.name} color={p.teamColor} size={i === 0 ? 112 : 92} />
                       </span>
-                      <span className="relative mt-4 text-[18px] font-semibold tracking-[-0.01em]">{p.name}</span>
-                      <span className="relative mt-1 flex items-center gap-1.5 text-[12.5px] text-ink-3">
+                      <span className="relative col-start-2 row-start-2 truncate text-[16px] font-semibold tracking-[-0.01em] md:mt-4 md:overflow-visible md:whitespace-normal md:text-[18px]">
+                        {p.name}
+                      </span>
+                      <span className="relative col-start-2 row-start-3 flex items-center gap-1.5 self-start text-[12.5px] text-ink-3 md:mt-1 md:self-center">
                         <TeamLogo id={p.teamId} size={14} /> {p.teamName}
                       </span>
                       <span
-                        className={`relative mt-4 font-display font-semibold leading-none tracking-[-0.04em] tabular ${
-                          i === 0 ? "text-[64px]" : "text-[52px]"
+                        className={`relative col-start-3 row-span-3 row-start-1 font-display text-[36px] font-semibold leading-none tracking-[-0.04em] tabular md:mt-4 ${
+                          i === 0 ? "md:text-[64px]" : "md:text-[52px]"
                         }`}
                       >
                         {fmt(value(p, metric))}
                       </span>
-                      <span className="relative mt-2 text-[12px] text-ink-3">
+                      <span className="relative mt-2 hidden text-[12px] text-ink-3 md:block">
                         {p.totals.apps} apps · {p.totals.minutes.toLocaleString("en-GB")}&prime;
                       </span>
                     </Link>
