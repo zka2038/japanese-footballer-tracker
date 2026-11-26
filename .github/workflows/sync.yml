@@ -40,6 +40,7 @@ jobs:
         env:
           DATA_PROVIDER: fotmob
           API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
         run: |
           if [ "${{ github.event.schedule }}" = "40 5 * * 1" ] || [ "${{ inputs.discover }}" = "true" ]; then
             npm run sync -- --discover

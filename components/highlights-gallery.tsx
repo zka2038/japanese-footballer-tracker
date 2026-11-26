@@ -88,6 +88,9 @@ export function HighlightsGallery({ items }: { items: HighlightItem[] }) {
                 {featured.home.name} {featured.home.score}–{featured.away.score} {featured.away.name}
               </span>
               <span className="mt-1 block text-[15px] text-white/85">{featured.involvements.map(describe).join(" · ")}</span>
+              {featured.highlight.source === "youtube-search" && featured.highlight.channel && (
+                <span className="mt-1 block text-[12px] text-white/55">via {featured.highlight.channel}</span>
+              )}
             </VideoThumb>
           )}
 
@@ -108,6 +111,9 @@ export function HighlightsGallery({ items }: { items: HighlightItem[] }) {
                     {h.home.name} {h.home.score}–{h.away.score} {h.away.name}
                   </span>
                   <span className="block truncate text-[12.5px] text-white/80">{h.involvements.map(describe).join(" · ")}</span>
+                  {h.highlight.source === "youtube-search" && h.highlight.channel && (
+                    <span className="mt-0.5 block truncate text-[11px] text-white/55">via {h.highlight.channel}</span>
+                  )}
                 </VideoThumb>
               </li>
             ))}

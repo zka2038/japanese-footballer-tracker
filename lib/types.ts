@@ -84,6 +84,10 @@ export interface Highlight {
   videoId: string;
   url: string;
   thumbnail: string;
+  /** Where the link came from: FotMob's match page, or our YouTube search fallback. */
+  source?: "fotmob" | "youtube-search";
+  title?: string;
+  channel?: string;
 }
 
 export interface MatchTeamSide {
