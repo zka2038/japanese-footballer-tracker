@@ -1,1 +1,28 @@
-{}
+{
+ "5781810": {
+  "searchedAt": "2026-11-26T14:08:15.117Z",
+  "attempts": 1,
+  "hit": {
+   "provider": "youtube",
+   "videoId": "VZZ3mLggYyc",
+   "url": "https://www.youtube.com/watch?v=VZZ3mLggYyc",
+   "thumbnail": "https://i.ytimg.com/vi/VZZ3mLggYyc/hqdefault.jpg",
+   "source": "youtube-search",
+   "title": "Sparta Rotterdam vs AZ Alkmaar 1-5 Samenvatting | Eredivisie 2026/27",
+   "channel": "UPires Futebol"
+  }
+ },
+ "6106310": {
+  "searchedAt": "2026-11-26T14:08:15.117Z",
+  "attempts": 1,
+  "hit": {
+   "provider": "youtube",
+   "videoId": "C6FnS8TeaTg",
+   "url": "https://www.youtube.com/watch?v=C6FnS8TeaTg",
+   "thumbnail": "https://i.ytimg.com/vi/C6FnS8TeaTg/hqdefault.jpg",
+   "source": "youtube-search",
+   "title": "Tough night in Lille | OSC Lille vs. FC Bayern 2-1 | Champions League Highlights",
+   "channel": "FC Bayern München"
+  }
+ }
+}
